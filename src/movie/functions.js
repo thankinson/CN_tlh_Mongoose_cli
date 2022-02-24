@@ -27,15 +27,32 @@ exports.removeMovie = async (title) => {
     };
 };
 
-exports.updateMovie = async (title, actor) => {
+exports.updateMovie = async (oldData, newData, param) => {
     try {
-        return await Movie.findOneAndUpdate({title}, {actor});
+        // return await Movie.findOneAndUpdate({old}, {anew});
+        if (param === "title"){
+        return await Movie.updateOne({title: oldData}, {title: newData});
+        } else if (param === "actor"){
+        return await Movie.updateOne({actor: oldData}, {actor: newData}); 
+        }
     } catch (error) {
         console.log(error)
     };
     
 } ;
 
+exports.searchBy = async (param, searchFor) =>{
+    try {
+        // return await Movie.find({actor}); // this works.....
+        if (param === "actor"){ /// this dose not
+            return await Movie.find({actor: searchFor});
+        } else if (param === "title"){
+            return await Movie.find({title: searchFor})
+        }   
+    } catch (error) {
+        console.log(error);        
+    }
+}
 
 // exports.deleteActor = async (actor) =>{
 //     try {

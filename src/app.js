@@ -1,24 +1,26 @@
 require("./db/connection");
 const { default: mongoose } = require("mongoose");
 const yargs = require("yargs");
-const { addMovie, list, removeMovie, updateMovie } = require("./movie/functions");
+const { addMovie, list, removeMovie, updateMovie, searchBy } = require("./movie/functions");
 
 const app = async (yargsObj) => {
     try {
         if (yargsObj.add){
-            for (i = 0; i < yargsObj.title.length; i++){
-                console.log(await addMovie(yargsObj.title[i], yargsObj.actor[i]));
-           };  // allows for single or multiple entrys. example : --add  --title="Paul" --actor="simon pegg" --title="the day the earth stood still" --actor="keanu reeves"
-        } else if (yargsObj.list) {
+            console.log(await addMovie(yargsObj.title, yargsObj.actor));
+            // add function
+          } else if (yargsObj.list) {
             console.log(await list());
             // list function
-        } else if (yargsObj.remove){
-            for (i = 0; i < yargsObj.title.length; i++){
-                await removeMovie(yargsObj.title[i]);
-           }; // allows the removel of single or multiple Movies from the database.
+        }  else if (yargsObj.remove){
+            await removeMovie(yargsObj.title);
+                // remove function
         } else if (yargsObj.update) {
-            await updateMovie(yargsObj.title, yargsObj.actor);
-        } else {    
+            await updateMovie(yargsObj.oldData, yargsObj.newData, yargsObj.param);
+            // to update film title param --param="title" --oldData="film1" --newData="film2"
+            // to update film actor param --param="actor" --oldData="actor1" --newData="actor2"
+        } else if (yargsObj.search) {   
+                console.log(await searchBy(yargsObj.param, yargsObj.searchFor));
+        } else {
             console.log("Incorrect Command");
         };
         await mongoose.disconnect();
@@ -27,3 +29,10 @@ const app = async (yargsObj) => {
     };
 };
 app(yargs.argv);
+
+
+
+
+            //     for (i = 0; i < yargsObj.title.length; i++){
+        //         await removeMovie(yargsObj.title[i]);
+        //    }; // allows the removel of single or multiple Movies from the database.

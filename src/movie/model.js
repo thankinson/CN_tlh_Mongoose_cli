@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { string, required } = require("yargs");
 
 const movieSchema = new mongoose.Schema({
     title: {
