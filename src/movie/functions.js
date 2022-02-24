@@ -18,16 +18,22 @@ exports.list = async () => {
     };
 };
 
-exports.deleteMovie = async (title) => {
+exports.removeMovie = async (title) => {
     try {
         await Movie.remove({title});
+        console.log(`${title} removed`)
     } catch (error) {
         console.log(error);
     };
 };
 
 exports.updateMovie = async (title, actor) => {
-    return await Movie.findOneAndUpdate({title}, {actor});
+    try {
+        return await Movie.findOneAndUpdate({title}, {actor});
+    } catch (error) {
+        console.log(error)
+    };
+    
 } ;
 
 
