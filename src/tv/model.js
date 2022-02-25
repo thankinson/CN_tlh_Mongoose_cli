@@ -6,7 +6,6 @@ const tvSchema = mongoose.Schema({
         type: String,
         required: true, 
         unique: true,
-
     },
     cast: {
         type: [],
@@ -14,7 +13,6 @@ const tvSchema = mongoose.Schema({
     seasons: {
         type: Number,
     },
-
 });
 
 const Tv = mongoose.model("Tv", tvSchema);
