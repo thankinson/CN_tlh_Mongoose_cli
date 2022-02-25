@@ -2,7 +2,7 @@ require("./db/connection");
 const { default: mongoose } = require("mongoose");
 const yargs = require("yargs");
 const { addMovie, list, removeMovie, updateMovie, searchBy } = require("./movie/functions");
-const { addTv, listTv, searchTv, removeTv, updateTv } = require("./tv/functions");
+
 
 const app = async (yargsObj) => {
     try {
@@ -31,31 +31,8 @@ const app = async (yargsObj) => {
     };
 };
 
-const tvDb = async (yargsObj) =>{
-    try{
-        console.log("hit 2")
-        if (yargsObj.tvShow){
-            await addTv(yargsObj.title, yargsObj.cast, yargsObj.seasons);
-        } else if (yargsObj.tvList){
-            console.log(await listTv());
-            console.log("list test")
-        } else if (yargsObj.tvSearch){
-            console.log(await searchTv(yargsObj.param, yargsObj.search));
-        } else if (yargsObj.deleteTv){
-            console.log(await removeTv(yargsObj.title));
-        } else if (yargsObj.tvUpdate){
-            console.log(await updateTv(yargsObj.param, yargsObj.search, yargsObj.update));
-        } else {
-            console.log("Incorrect tv command")
-        }
-    } catch (error) {
-        console.log(error)
-    }
-    await mongoose.disconnect();
-};
-
 app(yargs.argv);
-tvDb(yargs.argv)
+
 
 
 
