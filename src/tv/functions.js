@@ -28,9 +28,10 @@ exports.searchTv = async (param, search) => {
     };
 };
 
-exports.removeTv = async () => {
+exports.removeTv = async (title) => {
     try {
-        
+        await Tv.remove({title});
+        return `${title} removed`;
     } catch (error) {
         console.log(error);
     };
@@ -38,9 +39,14 @@ exports.removeTv = async () => {
 
 exports.updateTv = async () => {
     try {
-        
+        if (param === "title"){
+            return await Movie.updateOne({title: oldData}, {title: newData});
+        } else if (param === "actor"){
+            return await Movie.updateOne({actor: oldData}, {actor: newData}); 
+        };
     } catch (error) {
-        console.log(error);
+        console.log(error)
     };
+        
 };
 
