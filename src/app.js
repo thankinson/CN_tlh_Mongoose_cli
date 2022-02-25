@@ -3,8 +3,10 @@ const { default: mongoose } = require("mongoose");
 const yargs = require("yargs");
 const { addMovie, list, removeMovie, updateMovie, searchBy } = require("./movie/functions");
 
+
 const app = async (yargsObj) => {
     try {
+        console.log("hit 1")
         if (yargsObj.add){
             console.log(await addMovie(yargsObj.title, yargsObj.actor));
             // add function
@@ -28,6 +30,7 @@ const app = async (yargsObj) => {
         console.log(error);
     };
 };
+
 app(yargs.argv);
 
 
